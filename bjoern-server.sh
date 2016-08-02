@@ -1,3 +1,14 @@
 #!/bin/sh
 
-orientdb-community-2.1.5/bin/server.sh
+BASEDIR=$(dirname "$0")
+
+while getopts :d: opt
+do
+	case $opt in
+		d) JAVA_OPTS="$JAVA_OPTS -ea -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=$OPTARG"
+	esac
+done
+
+export JAVA_OPTS
+
+$BASEDIR/projects/octopus/octopus-server/octopus-server.sh

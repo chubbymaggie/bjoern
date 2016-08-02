@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:octopus-platform/bjoern-tools.git
+	branch = master
+	commit = 42d69670cdd1e11762800b310bd46f6336dfac77
+	parent = 5b92427012f2db89b480f8e88ef6a07c577903ad
+	cmdver = 0.3.0

@@ -21,57 +21,6 @@ System Requirements and Dependencies
   to query the database contents and develop new query-primitives
   (so-called steps) that can be re-used in subsequent queries.
 
-**A dependency tarball** You can download a tarball that bundles all
-dependencies
-`here <http://user.informatik.uni-goettingen.de/~fyamagu/bjoern-radare/jars.tar.gz>`_ .
-
-Building bjoern (step-by-step)
-------------------------------
-
-First, clone the repository and enter the bjoern-radare directory.
-
-.. code-block:: none
-
-	git clone https://github.com/fabsx00/bjoern-radare
-	cd bjoern-radare
-
-Next, download Orientdb Community edition:
-
-.. code-block:: none
-
-	wget 'http://orientdb.com/download.php?email=unknown@unknown.com&file=orientdb-community-2.1.5.tar.gz&os=linux'
-
-on Linux, or
-
-.. code-block:: none
-
-	wget 'http://orientdb.com/download.php?email=unknown@unknown.com&file=orientdb-community-2.1.5.tar.gz&os=mac'
-
-on MacOSX. Unpack the tarball directly in the bjoern directory:
-
-.. code-block:: none
-
-	tar xfz orientdb-community-2.1.5.tar.gz
-
-
-Finally, download and extract jar-dependencies, and build:
-
-.. code-block:: none
-
-	wget 'http://user.informatik.uni-goettingen.de/~fyamagu/bjoern-radare/jars.tar.gz'
-	tar xfz jars.tar.gz
-	ant
-
-Building bjoern plugins
------------------------
-
-Bjoern is built to operate on arbitrary property graphs. All
-functionality specific to binary code analysis is made available by
-plugins contained in the directory `bjoern-plugins`. You can build
-plugins by entering a plugin's directory and executing
-`ant`. As plugins depend on `bjoern.jar`, this will only succeed if
-bjoern has been built already.
-
 Installing radare2
 ------------------
 
@@ -79,12 +28,27 @@ Please follow the instructions `here
 <http://www.radare.org/r/down.html>`_ to install radare2, and make
 sure the programs `radare2` and `r2` are in the path.
 
-Installing the bjoern-shell
----------------------------
+Building bjoern (step-by-step)
+------------------------------
 
 .. code-block:: none
 
-	git clone https://github.com/a0x77n/bjoern-shell
-	cd bjoern-shell
-	python3 setup.py install
-	bjosh
+	git clone https://github.com/fabsx00/bjoern
+	cd bjoern
+	gradle deploy
+
+This will build the bjoern-server and install python utilities into
+the user site-packages directory (typically `~/.local/`). To test your
+installation, try running
+
+.. code-block:: none
+
+	bjoern-import
+
+If this command is unavailable, please make sure the script directory
+(typically `~/.local/bin/`) is in the path, e.g., by adding the
+following to your `~/.bashrc`:
+
+.. code-block:: none
+
+	export PATH=$PATH:~/.local/bin
