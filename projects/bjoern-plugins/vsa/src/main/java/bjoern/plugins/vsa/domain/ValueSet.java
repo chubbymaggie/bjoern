@@ -1,8 +1,8 @@
 package bjoern.plugins.vsa.domain;
 
-import bjoern.plugins.vsa.domain.region.GlobalRegion;
-import bjoern.plugins.vsa.domain.region.LocalRegion;
-import bjoern.plugins.vsa.domain.region.MemoryRegion;
+import bjoern.plugins.vsa.domain.memrgn.GlobalRegion;
+import bjoern.plugins.vsa.domain.memrgn.LocalRegion;
+import bjoern.plugins.vsa.domain.memrgn.MemoryRegion;
 import bjoern.plugins.vsa.structures.DataWidth;
 import bjoern.plugins.vsa.structures.StridedInterval;
 import org.slf4j.Logger;
@@ -37,6 +37,11 @@ public class ValueSet
 		return valueSet;
 	}
 
+	public static ValueSet newSingle(StridedInterval values)
+	{
+		return newSingle(LocalRegion.newLocalRegion(), values);
+	}
+
 	public static ValueSet newSingle(LocalRegion region, StridedInterval values)
 	{
 		ValueSet valueSet = new ValueSet(values.getDataWidth());
@@ -46,7 +51,6 @@ public class ValueSet
 
 	private void setValueOfRegion(MemoryRegion region, StridedInterval value)
 	{
-		assert !isTop() : "Cannot set region of top element";
 		if (!this.dataWidth.equals(value.getDataWidth()))
 		{
 			throw new IllegalArgumentException("Invalid data width");
@@ -86,7 +90,7 @@ public class ValueSet
 		return getRegions().size() == 1 && getRegions().stream().allMatch(region -> region instanceof LocalRegion);
 	}
 
-	private boolean isGlobal()
+	public boolean isGlobal()
 	{
 		return getRegions().size() == 1 && getRegions().stream().allMatch(region -> region instanceof GlobalRegion);
 	}
